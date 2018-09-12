@@ -12,11 +12,27 @@ phpLiteAdmin is a web-based SQLite database admin tool written in PHP with suppo
 ## Setup
 1. Open `phpliteadmin.config.php` in a text editor.
 2. Modify the `$password` variable to be the password you want for gaining access to the phpLiteAdmin tool. Default is nothing so autologin. (super unsecure)
-3. Build the image `$ docker build -t shadowcodex/phpliteadmin .`
+3. Run it using the steps below. 
+4. Profit.
 
-Additional Configuration Options can be found in the [phpLiteAdmin README](phpLiteAdmin_README.md).
+## Requirements
+
+- Docker - Get it at https://docs.docker.com/install/
 
 ## Run
+simply run:
+
+```
+chmod +x go.sh
+./go.sh /path/to/db/directory
+```
+
+Where `/path/to/db/directory` is to the **DIRECTORY** that contains your db and not a path to the db itself. The go.sh script will handle building the docker container and launching it as a daemon.
+
+Access the admin page at http://localhost:2015/phpliteadmin.php
+
+**OR**
+
 Replace the `/path/to/db/directory` below with the actual path where your db is. 
 ```
 docker run -it --rm -p 2015:2015 -v /path/to/db/directory:/db --name websql shadowcodex/phpliteadmin
@@ -24,16 +40,10 @@ docker run -it --rm -p 2015:2015 -v /path/to/db/directory:/db --name websql shad
 
 Access the admin page at http://localhost:2015/phpliteadmin.php
 
-**OR**
-
-Run it as default with the following command, as it doesn't require you to build the image. Though it is very unsecure and not recommended.
-
-```
-docker pull shadowcodex/phpliteadmin
-docker run -it --rm -p 2015:2015 -v /path/to/db/directory:/db --name websql shadowcodex/phpliteadmin
-```
-
 ## Advanced Configuration
+### PHPLiteAdmin
+You can update the `phpliteadmin.config.php` file to contain your config setup. For more info check out the [phpliteadmin repo](https://bitbucket.org/phpliteadmin/public/wiki/Configuration)
+
 ### Caddyfile
 Port number, IP and other items can be set in the Caddyfile. See instructions on the [Caddy website](https://caddyserver.com/docs/caddyfile).
 
